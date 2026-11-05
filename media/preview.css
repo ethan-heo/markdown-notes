@@ -1,0 +1,264 @@
+#markdown-selection-notes-button {
+  position: fixed;
+  z-index: 1000;
+  display: none;
+  min-height: 28px;
+  padding: 0 10px;
+  border: 1px solid var(--vscode-button-border, var(--vscode-button-background));
+  border-radius: 2px;
+  background: var(--vscode-button-background);
+  color: var(--vscode-button-foreground);
+  box-shadow: 0 1px 3px var(--vscode-widget-shadow, #0003);
+  cursor: pointer;
+  font: 12px var(--vscode-font-family);
+  transition: background-color 80ms ease, border-color 80ms ease;
+}
+#markdown-selection-notes-button:hover {
+  background: var(--vscode-button-hoverBackground);
+}
+#markdown-selection-notes-button:focus-visible,
+#markdown-selection-notes-toggle:focus-visible,
+#markdown-selection-notes-editor button:focus-visible,
+.markdown-selection-note-delete:focus-visible {
+  outline: 1px solid var(--vscode-focusBorder);
+  outline-offset: 1px;
+}
+
+#markdown-selection-notes-editor {
+  position: fixed;
+  z-index: 1001;
+  display: none;
+  top: 48px;
+  right: 18px;
+  width: min(280px, calc(100vw - 36px));
+  padding: 12px;
+  border: 1px solid var(--vscode-widget-border, var(--vscode-panel-border));
+  border-radius: 3px;
+  background: var(--vscode-editorWidget-background);
+  color: var(--vscode-editorWidget-foreground);
+  box-shadow: 0 4px 12px var(--vscode-widget-shadow, #0004);
+}
+
+#markdown-selection-notes-editor textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 72px;
+  margin-bottom: 8px;
+  padding: 7px;
+  resize: vertical;
+  border: 1px solid var(--vscode-input-border);
+  background: var(--vscode-input-background);
+  color: var(--vscode-input-foreground);
+  font: inherit;
+}
+#markdown-selection-notes-editor textarea:focus {
+  outline: 1px solid var(--vscode-focusBorder);
+  outline-offset: -1px;
+  border-color: var(--vscode-focusBorder);
+}
+
+#markdown-selection-notes-editor.markdown-selection-notes-editor-floating {
+  right: auto;
+}
+
+#markdown-selection-notes-editor button {
+  min-height: 26px;
+  margin-right: 6px;
+  padding: 0 9px;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  cursor: pointer;
+  font: inherit;
+}
+#markdown-selection-notes-editor button[data-action="save"] {
+  border-color: var(--vscode-button-border, var(--vscode-button-background));
+  background: var(--vscode-button-background);
+  color: var(--vscode-button-foreground);
+}
+#markdown-selection-notes-editor button[data-action="save"]:hover {
+  background: var(--vscode-button-hoverBackground);
+}
+#markdown-selection-notes-editor button[data-action="cancel"] {
+  background: transparent;
+  color: var(--vscode-descriptionForeground);
+}
+#markdown-selection-notes-editor button[data-action="cancel"]:hover {
+  background: var(--vscode-toolbar-hoverBackground);
+  color: var(--vscode-foreground);
+}
+#markdown-selection-notes-list {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  display: none;
+  box-sizing: border-box;
+  width: var(--markdown-selection-notes-width, 320px);
+  overflow: auto;
+  padding: 0 16px 16px;
+  border-left: 1px solid var(--vscode-sideBar-border, var(--vscode-panel-border));
+  background: var(--vscode-sideBar-background, var(--vscode-editor-background));
+  color: var(--vscode-sideBar-foreground, var(--vscode-foreground));
+}
+body.markdown-selection-notes-sidebar-open {
+  box-sizing: border-box;
+  padding-right: var(--markdown-selection-notes-width, 320px);
+}
+body.markdown-selection-notes-sidebar-open #markdown-selection-notes-list {
+  display: block;
+}
+body.markdown-selection-notes-sidebar-open #markdown-selection-notes-toggle {
+  display: block;
+}
+#markdown-selection-notes-header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  height: 48px;
+  box-sizing: border-box;
+  padding: 10px 16px;
+  margin: 0 -16px 12px;
+  border-bottom: 1px solid var(--vscode-sideBar-border, var(--vscode-panel-border));
+  background: var(--vscode-sideBar-background, var(--vscode-editor-background));
+}
+#markdown-selection-notes-search {
+  box-sizing: border-box;
+  width: 100%;
+  height: 28px;
+  padding: 0 8px;
+  border: 1px solid var(--vscode-input-border, var(--vscode-panel-border));
+  border-radius: 2px;
+  background: var(--vscode-input-background);
+  color: var(--vscode-input-foreground);
+  font: 12px var(--vscode-font-family);
+}
+#markdown-selection-notes-search:focus {
+  outline: 1px solid var(--vscode-focusBorder);
+  outline-offset: -1px;
+  border-color: var(--vscode-focusBorder);
+}
+#markdown-selection-notes-more {
+  width: 100%;
+  min-height: 28px;
+  margin-top: 10px;
+  border: 1px solid var(--vscode-button-border, var(--vscode-panel-border));
+  border-radius: 2px;
+  background: transparent;
+  color: var(--vscode-textLink-foreground);
+  cursor: pointer;
+  font: 12px var(--vscode-font-family);
+}
+#markdown-selection-notes-more:hover {
+  background: var(--vscode-toolbar-hoverBackground);
+}
+#markdown-selection-notes-toggle {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 1002;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid var(--vscode-button-border, var(--vscode-panel-border));
+  border-radius: 3px;
+  background: transparent;
+  color: var(--vscode-icon-foreground, var(--vscode-foreground));
+  cursor: pointer;
+  display: none;
+}
+#markdown-selection-notes-toggle:hover {
+  background: var(--vscode-toolbar-hoverBackground);
+}
+#markdown-selection-notes-resize {
+  position: fixed;
+  top: 0;
+  right: calc(var(--markdown-selection-notes-width, 320px) - 3px);
+  bottom: 0;
+  z-index: 1002;
+  width: 6px;
+  cursor: ew-resize;
+}
+#markdown-selection-notes-resize:hover {
+  background: var(--vscode-sash-hoverBorder, transparent);
+}
+body.markdown-selection-notes-sidebar-collapsed {
+  padding-right: 0 !important;
+}
+body.markdown-selection-notes-sidebar-collapsed #markdown-selection-notes-list {
+  width: 0;
+  padding: 0;
+  border-left: 0;
+}
+body.markdown-selection-notes-sidebar-collapsed #markdown-selection-notes-list > * {
+  display: none;
+}
+body.markdown-selection-notes-sidebar-collapsed #markdown-selection-notes-resize { display: none; }
+body.markdown-selection-notes-sidebar-collapsed #markdown-selection-notes-toggle {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 1002;
+}
+.markdown-selection-note {
+  position: relative;
+  margin-top: 8px;
+  padding: 12px 42px 12px 12px;
+  border: 1px solid var(--vscode-panel-border);
+  border-radius: 4px;
+  background: var(--vscode-sideBar-background, var(--vscode-editorWidget-background));
+  color: var(--vscode-sideBar-foreground, var(--vscode-editorWidget-foreground));
+  box-shadow: none;
+  font-size: 12px;
+  transition: background-color 120ms ease, border-color 120ms ease;
+  cursor: pointer;
+}
+.markdown-selection-note:hover {
+  background: var(--vscode-list-hoverBackground, var(--vscode-editorHoverWidget-background));
+  border-color: var(--vscode-list-focusOutline, var(--vscode-focusBorder));
+}
+.markdown-selection-note-quote {
+  margin: 0 0 7px;
+  padding-left: 9px;
+  border-left: 2px solid var(--vscode-textBlockQuote-border);
+  color: var(--vscode-descriptionForeground);
+  font-size: 12px;
+  font-style: italic;
+  line-height: 1.45;
+}
+.markdown-selection-note-comment {
+  padding-right: 18px;
+  font-size: 14px;
+  line-height: 1.55;
+}
+.markdown-selection-note-delete {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: 3px;
+  background: transparent;
+  color: var(--vscode-icon-foreground, var(--vscode-descriptionForeground));
+  cursor: pointer;
+}
+.markdown-selection-note-delete:hover {
+  background: var(--vscode-toolbar-hoverBackground);
+  color: var(--vscode-errorForeground, var(--vscode-foreground));
+}
+.markdown-selection-note-empty {
+  color: var(--vscode-descriptionForeground);
+  font-size: 12px;
+}
+::highlight(markdown-selection-notes) {
+  background-color: var(--markdown-selection-notes-highlight-color, #ffd33d);
+  color: #1f1f1f;
+  text-decoration: underline wavy color-mix(in srgb, var(--markdown-selection-notes-highlight-color, #ffd33d) 55%, #8a5a00);
+  text-decoration-thickness: 1px;
+}
+::highlight(markdown-selection-notes-draft) {
+  background-color: color-mix(in srgb, var(--markdown-selection-notes-highlight-color, #ffd33d) 55%, transparent);
+  color: var(--vscode-editor-foreground);
+}
