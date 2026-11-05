@@ -111,33 +111,6 @@ body.markdown-selection-notes-sidebar-open #markdown-selection-notes-list {
 body.markdown-selection-notes-sidebar-open #markdown-selection-notes-toggle {
   display: block;
 }
-#markdown-selection-notes-header {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  height: 48px;
-  box-sizing: border-box;
-  padding: 10px 16px;
-  margin: 0 -16px 12px;
-  border-bottom: 1px solid var(--vscode-sideBar-border, var(--vscode-panel-border));
-  background: var(--vscode-sideBar-background, var(--vscode-editor-background));
-}
-#markdown-selection-notes-search {
-  box-sizing: border-box;
-  width: 100%;
-  height: 28px;
-  padding: 0 8px;
-  border: 1px solid var(--vscode-input-border, var(--vscode-panel-border));
-  border-radius: 2px;
-  background: var(--vscode-input-background);
-  color: var(--vscode-input-foreground);
-  font: 12px var(--vscode-font-family);
-}
-#markdown-selection-notes-search:focus {
-  outline: 1px solid var(--vscode-focusBorder);
-  outline-offset: -1px;
-  border-color: var(--vscode-focusBorder);
-}
 #markdown-selection-notes-more {
   width: 100%;
   min-height: 28px;

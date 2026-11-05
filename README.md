@@ -15,7 +15,6 @@ Notes are linked to the selected text. When you reopen the document, the linked 
 - Highlight text linked to saved notes
 - Jump to the original text by clicking a note card
 - Delete note cards
-- Search notes
 - Render large note lists progressively in batches of 40
 - Collapse or expand the notes panel
 - Resize the notes panel

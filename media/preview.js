@@ -29,7 +29,6 @@
   let selectedText = '';
   let selectedRange = null;
   let releasePoint = { x: 0, y: 0 };
-  let searchQuery = '';
   let visibleLimit = 40;
 
   const button = document.createElement('button');
@@ -202,7 +201,6 @@
       noteStore = new NoteStore(source);
       indexedDbReady = false;
       notes = readNotes();
-      searchQuery = '';
       visibleLimit = 40;
       renderNotes();
       hydrateNotes();
@@ -263,26 +261,13 @@
       writeLayout();
       applyLayout();
     }
-    const query = searchQuery.trim().toLocaleLowerCase();
-    const filtered = notes.filter(function (note) {
-      return !query || (note.comment + ' ' + note.text).toLocaleLowerCase().includes(query);
-    }).slice().reverse();
-    const visible = filtered.slice(0, visibleLimit);
+    const ordered = notes.slice().reverse();
+    const visible = ordered.slice(0, visibleLimit);
     const cards = visible.map(function (note) {
       return '<div class="markdown-selection-note" data-note-id="' + escapeHtml(note.id) + '"><button class="markdown-selection-note-delete" data-note-id="' + escapeHtml(note.id) + '" title="메모 삭제" aria-label="메모 삭제">×</button><div class="markdown-selection-note-quote">“' + escapeHtml(note.text.slice(0, 120)) + (note.text.length > 120 ? '…' : '') + '”</div><div class="markdown-selection-note-comment">' + escapeHtml(note.comment) + '</div></div>';
     }).join('');
-    const more = filtered.length > visible.length ? '<button id="markdown-selection-notes-more" type="button">더 보기</button>' : '';
-    list.innerHTML = '<div id="markdown-selection-notes-header"><input id="markdown-selection-notes-search" type="search" placeholder="메모 검색" aria-label="메모 검색"></div>' + (cards || '<div class="markdown-selection-note-empty">' + (query ? '검색 결과가 없습니다.' : '선택 영역을 드래그해 메모를 추가하세요.') + '</div>') + more;
-    const search = list.querySelector('#markdown-selection-notes-search');
-    search.value = searchQuery;
-    search.addEventListener('input', function () {
-      searchQuery = search.value;
-      visibleLimit = 40;
-      renderNotes();
-      const nextSearch = list.querySelector('#markdown-selection-notes-search');
-      nextSearch.focus();
-      nextSearch.setSelectionRange(searchQuery.length, searchQuery.length);
-    });
+    const more = ordered.length > visible.length ? '<button id="markdown-selection-notes-more" type="button">더 보기</button>' : '';
+    list.innerHTML = (cards || '<div class="markdown-selection-note-empty">선택 영역을 드래그해 메모를 추가하세요.</div>') + more;
     list.querySelector('#markdown-selection-notes-more')?.addEventListener('click', function () {
       visibleLimit += 40;
       renderNotes();

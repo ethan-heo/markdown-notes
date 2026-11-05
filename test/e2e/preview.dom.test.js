@@ -190,17 +190,6 @@ describe('Markdown Selection Notes Preview E2E', function () {
     assert.equal(window.document.querySelectorAll('.markdown-selection-note').length, 80);
   });
 
-  it('검색 결과가 없으면 빈 상태 메시지를 표시한다', async function () {
-    const notes = [{ id: 'search-me', source: 'file:///notes/demo.md', text: '인용문', comment: '검색 가능한 메모', createdAt: new Date().toISOString() }];
-    const dom = createPreview({ notes });
-    const { window } = dom;
-    const search = window.document.getElementById('markdown-selection-notes-search');
-    search.value = '존재하지 않는 검색어';
-    search.dispatchEvent(new window.Event('input', { bubbles: true }));
-    assert.equal(window.document.querySelectorAll('.markdown-selection-note').length, 0);
-    assert.equal(window.document.querySelector('.markdown-selection-note-empty').textContent, '검색 결과가 없습니다.');
-  });
-
   it('다른 파일로 Preview가 전환되면 해당 파일의 메모와 하이라이트만 표시한다', async function () {
     const sourceA = 'file:///notes/a.md';
     const sourceB = 'file:///notes/b.md';
@@ -231,7 +220,7 @@ describe('Markdown Selection Notes Preview E2E', function () {
     assert.equal(window.document.documentElement.style.getPropertyValue('--markdown-selection-notes-highlight-color'), 'rgba(255, 0, 0, 0.8)');
   });
 
-  it('수천 개 메모를 한 번에 렌더링하지 않고 검색으로 좁힐 수 있다', async function () {
+  it('많은 메모를 한 번에 렌더링하지 않고 더 보기로 나누어 표시한다', async function () {
     const notes = Array.from({ length: 120 }, (_, index) => ({
       id: 'note-' + index,
       source: 'file:///notes/demo.md',
@@ -245,9 +234,9 @@ describe('Markdown Selection Notes Preview E2E', function () {
     assert.equal(window.document.querySelectorAll('.markdown-selection-note').length, 40);
     assert.ok(window.document.getElementById('markdown-selection-notes-more'));
 
-    const search = window.document.getElementById('markdown-selection-notes-search');
-    search.value = '메모 내용 119';
-    search.dispatchEvent(new window.Event('input', { bubbles: true }));
-    assert.equal(window.document.querySelectorAll('.markdown-selection-note').length, 1);
+    window.document.getElementById('markdown-selection-notes-more').click();
+    assert.equal(window.document.querySelectorAll('.markdown-selection-note').length, 80);
+    window.document.getElementById('markdown-selection-notes-more').click();
+    assert.equal(window.document.querySelectorAll('.markdown-selection-note').length, 120);
   });
 });
