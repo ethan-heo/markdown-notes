@@ -3,3 +3,9 @@ tsconfig.json
 *.ts
 node_modules
 .gitignore
+.github
+docs
+test
+.vscode
+AGENTS.md
+package-lock.json

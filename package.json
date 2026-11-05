@@ -3,8 +3,16 @@
   "displayName": "Markdown Selection Notes",
   "description": "Markdown Preview에서 드래그한 영역에 메모를 남깁니다.",
   "version": "0.0.1",
-  "publisher": "local",
+  "publisher": "ethan-heo",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ethan-heo/markdown-notes.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ethan-heo/markdown-notes/issues"
+  },
+  "homepage": "https://github.com/ethan-heo/markdown-notes#readme",
   "engines": {
     "vscode": "^1.85.0"
   },
@@ -86,6 +94,7 @@
     "@types/mocha": "^10.0.10",
     "@types/vscode": "^1.85.0",
     "@vscode/test-electron": "^3.1.0",
+    "@vscode/vsce": "^4.1.0",
     "jsdom": "^29.1.1",
     "mocha": "^12.0.3",
     "playwright": "^1.64.1",

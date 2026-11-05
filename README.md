@@ -100,6 +100,8 @@ npm run compile
 
 Press `F5` to launch the Extension Development Host.
 
+See [docs/RELEASING.md](docs/RELEASING.md) for the CI-first release process and Marketplace deployment setup.
+
 ## Testing
 
 Run the unit tests and Preview DOM tests with:
