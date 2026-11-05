@@ -120,6 +120,9 @@
   font-size: 17px !important;
   line-height: 1;
 }
+#markdown-selection-notes-editor-actions > .markdown-selection-notes-icon-button + .markdown-selection-notes-icon-button {
+  margin-left: 4px !important;
+}
 #markdown-selection-notes-editor button[data-action="save"] {
   border-color: var(--vscode-button-border, var(--vscode-button-background));
   background: var(--vscode-button-background);
