@@ -12,6 +12,7 @@ const DEMO_MODE = process.env.E2E_DEMO === '1';
 const DEMO_DELAY = 1800;
 const demoFrameDirectory = DEMO_MODE ? fs.mkdtempSync(path.join(os.tmpdir(), 'markdown-selection-notes-demo-')) : null;
 let demoFrameNumber = 0;
+let demoDesktopHeight = 0;
 
 async function run() {
   const extension = vscode.extensions.all.find((item) => item.packageJSON.name === 'markdown-selection-notes');
@@ -139,9 +140,24 @@ async function demoCheckpoint(name) {
   const framePath = path.join(demoFrameDirectory, `${String(demoFrameNumber).padStart(2, '0')}-${name}.png`);
   const screenshot = spawnSync('screencapture', ['-x', '-m', framePath], { stdio: 'ignore' });
   if (screenshot.status !== 0) throw new Error('전체 화면 캡처에 실패했습니다. macOS 화면 기록 권한을 확인하세요.');
+  cropDemoFrame(framePath);
   const resize = spawnSync('sips', ['-Z', '1280', framePath], { stdio: 'ignore' });
   if (resize.status !== 0) throw new Error('데모 캡처 이미지 축소에 실패했습니다.');
   demoFrameNumber += 1;
+}
+
+function cropDemoFrame(framePath) {
+  const metadata = spawnSync('sips', ['-g', 'pixelWidth', '-g', 'pixelHeight', framePath], { encoding: 'utf8' });
+  if (metadata.status !== 0) throw new Error('데모 캡처 이미지 크기를 확인하지 못했습니다.');
+  const width = Number(metadata.stdout.match(/pixelWidth:\s*(\d+)/)?.[1]);
+  const height = Number(metadata.stdout.match(/pixelHeight:\s*(\d+)/)?.[1]);
+  if (!width || !height || !demoDesktopHeight) throw new Error('데모 캡처 이미지 크기가 올바르지 않습니다.');
+  const menuBarHeight = Math.round(25 * height / demoDesktopHeight);
+  const crop = spawnSync('sips', [
+    '--cropToHeightWidth', String(height - menuBarHeight), String(width),
+    '--cropOffset', String(menuBarHeight), String(menuBarHeight), framePath
+  ], { stdio: 'ignore' });
+  if (crop.status !== 0) throw new Error('macOS 메뉴바를 제외한 데모 캡처에 실패했습니다.');
 }
 
 async function ensureDemoFullscreen() {
@@ -152,7 +168,9 @@ async function ensureDemoFullscreen() {
     throw new Error('주 화면 크기를 확인하지 못했습니다. macOS 손쉬운 사용 권한을 확인하세요.');
   }
   const width = dimensions[2];
-  const height = Math.max(1, dimensions[3] - 25);
+  const desktopHeight = dimensions[3];
+  const height = Math.max(1, desktopHeight - 25);
+  demoDesktopHeight = desktopHeight;
   const script = [
     'tell application "Visual Studio Code" to activate',
     'tell application "System Events"',

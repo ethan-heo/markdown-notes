@@ -41,13 +41,13 @@ Click a note card to jump to the linked text. To delete a note, click the `×` b
 
 ### Create the demo GIF
 
-The demo command opens VS Code in fullscreen mode, slowly performs the real Preview UI flow, and creates `docs/demo.gif` from full-screen captures.
+The demo command expands VS Code to fill the main display, slowly performs the real Preview UI flow, and creates `docs/demo.gif` from captures cropped to the VS Code window area.
 
 ```bash
 npm run test:e2e:demo
 ```
 
-This command is intended for macOS and requires Screen Recording and Accessibility permissions for the terminal or editor running the command. Close private windows and notifications before running it because the GIF captures the entire main display.
+This command is intended for macOS and requires Screen Recording and Accessibility permissions for the terminal or editor running the command. Close private windows and notifications before running it because the capture is taken from the main display before cropping.
 
 ## Configuration
 
