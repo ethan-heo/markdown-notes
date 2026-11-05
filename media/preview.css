@@ -217,8 +217,12 @@ body.markdown-selection-notes-sidebar-open #markdown-selection-notes-header {
   right: calc(var(--markdown-selection-notes-width, 320px) - 3px);
   bottom: 0;
   z-index: 1002;
+  display: none;
   width: 6px;
   cursor: ew-resize;
+}
+body.markdown-selection-notes-sidebar-open #markdown-selection-notes-resize {
+  display: block;
 }
 #markdown-selection-notes-resize:hover {
   background: var(--vscode-sash-hoverBorder, transparent);

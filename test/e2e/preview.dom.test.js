@@ -91,6 +91,7 @@ describe('Markdown Selection Notes Preview E2E', function () {
     assert.equal(window.document.getElementById('markdown-selection-notes-button').style.display, 'none');
     assert.equal(window.CSS.highlights.has('markdown-selection-notes-draft'), true);
     assert.equal(window.document.body.classList.contains('markdown-selection-notes-sidebar-open'), false);
+    assert.equal(window.document.getElementById('markdown-selection-notes-resize').style.display, 'none');
   });
 
   it('접힌 메모 영역에서도 드래그하면 메모 버튼이 나타나고 입력창은 선택 위치에 표시된다', async function () {
