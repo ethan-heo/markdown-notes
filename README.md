@@ -84,8 +84,8 @@ Controls the highlight color for text linked to a note. HEX, `rgb()`, and `rgba(
 Notes are stored locally and are not sent to an external server.
 
 - Notes are stored in IndexedDB, separated by file.
-- Existing `localStorage` data is migrated automatically the first time the Preview is opened.
-- `localStorage` is used as a fallback when IndexedDB is unavailable.
+- Existing `localStorage` note data is migrated automatically once when the Preview is opened, then removed.
+- The notes data path uses IndexedDB as its single source of truth.
 - File-specific identifiers prevent notes from different Markdown files from being mixed.
 
 If the document text or structure changes and the saved location can no longer be identified reliably, the extension does not highlight an unrelated area.

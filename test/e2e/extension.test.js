@@ -127,6 +127,17 @@ async function runRealPreviewInteraction(document) {
   await frame.locator('.markdown-selection-note').filter({ hasText: '실제 Preview UI E2E 메모' }).click();
   assert.ok(await frame.evaluate(() => window.__markdownSelectionNotesScrollCalls.length > 0));
   await demoCheckpoint('card-clicked');
+
+  // 마지막 메모를 삭제하면 카드·하이라이트·사이드바 영역이 모두 사라지는지 확인한다.
+  const savedCard = frame.locator('.markdown-selection-note').filter({ hasText: '실제 Preview UI E2E 메모' }).first();
+  await savedCard.locator('.markdown-selection-note-delete').click();
+  await savedCard.waitFor({ state: 'detached', timeout: 5000 });
+  assert.equal(await frame.locator('.markdown-selection-note').count(), 0);
+  assert.equal(await frame.evaluate(() => CSS.highlights?.get('markdown-selection-notes')?.size ?? 0), 0);
+  assert.equal(await frame.locator('#markdown-selection-notes-list').isHidden(), true);
+  assert.equal(await frame.locator('#markdown-selection-notes-header').isHidden(), true);
+  assert.equal(await frame.locator('#markdown-selection-notes-resize').isHidden(), true);
+  assert.equal(await frame.evaluate(() => document.body.classList.contains('markdown-selection-notes-sidebar-open')), false);
   finishDemo();
 }
 

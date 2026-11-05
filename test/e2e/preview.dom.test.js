@@ -63,6 +63,7 @@ describe('Markdown Selection Notes Preview E2E', function () {
     assert.equal(window.document.querySelectorAll('.markdown-selection-note').length, 1);
     assert.equal(window.CSS.highlights.has('markdown-selection-notes'), true);
     assert.equal(window.CSS.highlights.has('markdown-selection-notes-draft'), false);
+    assert.equal(window.localStorage.getItem('markdown-selection-notes:file:///notes/demo.md'), null);
   });
 
   it('사용자에게 보이는 조작 문구를 아이콘으로 표시하고 접근성 이름은 유지한다', async function () {
@@ -230,6 +231,22 @@ describe('Markdown Selection Notes Preview E2E', function () {
 
     assert.equal(window.document.querySelector('.markdown-selection-note-comment').textContent, 'B 파일 메모');
     assert.equal(window.CSS.highlights.get('markdown-selection-notes').size, 1);
+
+    data.setAttribute('data-settings', JSON.stringify({ source: sourceA }));
+    await waitForPreview();
+    assert.equal(window.document.querySelector('.markdown-selection-note-comment').textContent, 'A 파일 메모');
+    assert.equal(window.CSS.highlights.get('markdown-selection-notes').size, 1);
+  });
+
+  it('메모가 없는 첫 렌더링에서는 사이드바가 본문 영역을 차지하지 않는다', function () {
+    const dom = createPreview();
+    const { window } = dom;
+
+    assert.equal(window.document.body.classList.contains('markdown-selection-notes-sidebar-open'), false);
+    assert.equal(window.document.getElementById('markdown-selection-notes-list').hidden, true);
+    assert.equal(window.document.getElementById('markdown-selection-notes-header').hidden, true);
+    assert.equal(window.document.getElementById('markdown-selection-notes-resize').hidden, true);
+    assert.equal(window.document.getElementById('markdown-selection-notes-resize').style.display, 'none');
   });
 
   it('저장된 메모는 첫 렌더링부터 원문 하이라이트를 복원한다', async function () {
