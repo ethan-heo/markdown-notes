@@ -42,6 +42,9 @@
   editor.innerHTML = '<textarea aria-label="메모" placeholder="이 선택 영역에 대한 메모를 입력하세요"></textarea><br><button type="button" data-action="save">저장</button><button type="button" data-action="cancel">취소</button>';
   document.body.appendChild(editor);
 
+  const header = document.createElement('div');
+  header.id = 'markdown-selection-notes-header';
+  document.body.appendChild(header);
   const list = document.createElement('div');
   list.id = 'markdown-selection-notes-list';
   document.body.appendChild(list);
@@ -53,7 +56,7 @@
   toggle.id = 'markdown-selection-notes-toggle';
   toggle.type = 'button';
   toggle.title = '메모 영역 접기/펼치기';
-  document.body.appendChild(toggle);
+  header.appendChild(toggle);
   applyLayout();
   renderNotes();
   setTimeout(hydrateNotes, 0);

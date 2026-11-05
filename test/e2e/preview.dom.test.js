@@ -146,7 +146,12 @@ describe('Markdown Selection Notes Preview E2E', function () {
     const notes = [{ id: 'toggle-me', source: 'file:///notes/demo.md', text: '첫 번째 문장입니다.', comment: '접기 테스트', createdAt: new Date().toISOString() }];
     const dom = createPreview({ notes });
     const { window } = dom;
+    const header = window.document.getElementById('markdown-selection-notes-header');
     const toggle = window.document.getElementById('markdown-selection-notes-toggle');
+    const card = window.document.querySelector('.markdown-selection-note');
+    assert.ok(header);
+    assert.equal(toggle.parentElement, header);
+    assert.equal(card.parentElement.id, 'markdown-selection-notes-list');
     toggle.click();
     assert.equal(window.document.body.classList.contains('markdown-selection-notes-sidebar-collapsed'), true);
     assert.equal(toggle.getAttribute('aria-label'), '메모 영역 펼치기');

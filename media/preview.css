@@ -88,7 +88,7 @@
 }
 #markdown-selection-notes-list {
   position: fixed;
-  top: 0;
+  top: 48px;
   right: 0;
   bottom: 0;
   z-index: 999;
@@ -108,8 +108,25 @@ body.markdown-selection-notes-sidebar-open {
 body.markdown-selection-notes-sidebar-open #markdown-selection-notes-list {
   display: block;
 }
-body.markdown-selection-notes-sidebar-open #markdown-selection-notes-toggle {
-  display: block;
+#markdown-selection-notes-header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1001;
+  display: none;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: flex-end;
+  width: var(--markdown-selection-notes-width, 320px);
+  height: 48px;
+  padding: 10px 16px;
+  border-left: 1px solid var(--vscode-sideBar-border, var(--vscode-panel-border));
+  border-bottom: 1px solid var(--vscode-sideBar-border, var(--vscode-panel-border));
+  background: var(--vscode-sideBar-background, var(--vscode-editor-background));
+  pointer-events: none;
+}
+body.markdown-selection-notes-sidebar-open #markdown-selection-notes-header {
+  display: flex;
 }
 #markdown-selection-notes-more {
   width: 100%;
@@ -126,10 +143,7 @@ body.markdown-selection-notes-sidebar-open #markdown-selection-notes-toggle {
   background: var(--vscode-toolbar-hoverBackground);
 }
 #markdown-selection-notes-toggle {
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  z-index: 1002;
+  position: static;
   width: 28px;
   height: 28px;
   padding: 0;
@@ -138,14 +152,15 @@ body.markdown-selection-notes-sidebar-open #markdown-selection-notes-toggle {
   background: transparent;
   color: var(--vscode-icon-foreground, var(--vscode-foreground));
   cursor: pointer;
-  display: none;
+  display: block;
+  pointer-events: auto;
 }
 #markdown-selection-notes-toggle:hover {
   background: var(--vscode-toolbar-hoverBackground);
 }
 #markdown-selection-notes-resize {
   position: fixed;
-  top: 0;
+  top: 48px;
   right: calc(var(--markdown-selection-notes-width, 320px) - 3px);
   bottom: 0;
   z-index: 1002;
@@ -159,6 +174,7 @@ body.markdown-selection-notes-sidebar-collapsed {
   padding-right: 0 !important;
 }
 body.markdown-selection-notes-sidebar-collapsed #markdown-selection-notes-list {
+  top: 0;
   width: 0;
   padding: 0;
   border-left: 0;
@@ -167,11 +183,18 @@ body.markdown-selection-notes-sidebar-collapsed #markdown-selection-notes-list >
   display: none;
 }
 body.markdown-selection-notes-sidebar-collapsed #markdown-selection-notes-resize { display: none; }
-body.markdown-selection-notes-sidebar-collapsed #markdown-selection-notes-toggle {
-  position: fixed;
+body.markdown-selection-notes-sidebar-collapsed #markdown-selection-notes-header {
   top: 10px;
   right: 10px;
-  z-index: 1002;
+  width: auto;
+  height: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+body.markdown-selection-notes-sidebar-collapsed #markdown-selection-notes-toggle {
+  top: 10px;
+  right: 10px;
 }
 .markdown-selection-note {
   position: relative;
