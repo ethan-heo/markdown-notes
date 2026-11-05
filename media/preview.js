@@ -254,13 +254,13 @@
   function createId() { return Date.now().toString(36) + '-' + Math.random().toString(36).slice(2); }
   function writeNote(note) {
     persistenceRevision += 1;
+    localStorage.setItem(storageKey, JSON.stringify(notes));
     if (indexedDbReady) noteStore.put(note);
-    else localStorage.setItem(storageKey, JSON.stringify(notes));
   }
   function removeNote(note) {
     persistenceRevision += 1;
+    localStorage.setItem(storageKey, JSON.stringify(notes));
     if (indexedDbReady) noteStore.delete(note?.id);
-    else localStorage.setItem(storageKey, JSON.stringify(notes));
   }
   function hydrateNotes() {
     const store = noteStore;
