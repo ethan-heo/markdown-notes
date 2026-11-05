@@ -48,7 +48,7 @@
   let persistenceRevision = 0;
   const layoutKey = 'markdown-selection-notes-layout';
   applyPreviewConfig();
-  let notes = readNotes();
+  let notes = readLegacyNotes();
   let layout = readLayout();
   let selectedText = '';
   let selectedRange = null;
@@ -230,7 +230,7 @@
       noteStore = new NoteStore(source);
       indexedDbReady = false;
       persistenceRevision = 0;
-      notes = readNotes();
+      notes = readLegacyNotes();
       visibleLimit = 40;
       renderNotes();
       hydrateNotes();
@@ -244,7 +244,8 @@
       document.documentElement.style.setProperty('--markdown-selection-notes-highlight-color', configElement.dataset.highlightColor);
     }
   }
-  function readNotes() {
+  // Read legacy notes once so existing users can migrate to IndexedDB.
+  function readLegacyNotes() {
     try {
       const value = JSON.parse(localStorage.getItem(storageKey) || '[]');
       return Array.isArray(value) ? value.map(ensureId) : [];
@@ -254,12 +255,12 @@
   function createId() { return Date.now().toString(36) + '-' + Math.random().toString(36).slice(2); }
   function writeNote(note) {
     persistenceRevision += 1;
-    localStorage.setItem(storageKey, JSON.stringify(notes));
+    localStorage.removeItem(storageKey);
     if (indexedDbReady) noteStore.put(note);
   }
   function removeNote(note) {
     persistenceRevision += 1;
-    localStorage.setItem(storageKey, JSON.stringify(notes));
+    localStorage.removeItem(storageKey);
     if (indexedDbReady) noteStore.delete(note?.id);
   }
   function hydrateNotes() {
@@ -275,13 +276,13 @@
       if (stored.length) {
         indexedDbReady = true;
         notes = stored.map(ensureId);
-        localStorage.setItem(storageKey, JSON.stringify(notes));
+        localStorage.removeItem(storageKey);
         renderNotes();
         return;
       }
       if (notes.length) return synchronizeStore(store, hydrationSource);
       indexedDbReady = true;
-    }).catch(function () { /* localStorage remains the fallback */ });
+    }).catch(function () { /* IndexedDB remains the single source of truth. */ });
   }
   function synchronizeStore(store, hydrationSource) {
     const revision = persistenceRevision;
@@ -290,7 +291,8 @@
       if (store !== noteStore || hydrationSource !== source) return;
       if (revision !== persistenceRevision) return synchronizeStore(store, hydrationSource);
       indexedDbReady = true;
-    }).catch(function () { /* localStorage remains the fallback */ });
+      localStorage.removeItem(storageKey);
+    }).catch(function () { /* IndexedDB remains the single source of truth. */ });
   }
   function readLayout() {
     try {

@@ -20,7 +20,7 @@ function createPreview({ source = 'file:///notes/demo.md', markdown = '첫 번�
   window.HTMLElement.prototype.setPointerCapture = () => {};
   window.Range.prototype.getBoundingClientRect = () => ({ top: 100, height: 20 });
   window.scrollTo = (...args) => { window.__lastScroll = args; };
-  window.localStorage.setItem('markdown-selection-notes:' + source, JSON.stringify(notes));
+  if (notes.length) window.localStorage.setItem('markdown-selection-notes:' + source, JSON.stringify(notes));
   window.localStorage.setItem('markdown-selection-notes-layout', JSON.stringify({ width: 320, collapsed }));
   window.eval(previewScript);
   return dom;
@@ -132,7 +132,7 @@ describe('Markdown Selection Notes Preview E2E', function () {
     assert.equal(window.document.getElementById('markdown-selection-notes-editor').style.display, 'none');
     assert.equal(window.CSS.highlights.has('markdown-selection-notes-draft'), false);
     assert.equal(window.document.querySelectorAll('.markdown-selection-note').length, 0);
-    assert.deepEqual(JSON.parse(window.localStorage.getItem('markdown-selection-notes:file:///notes/demo.md')), []);
+    assert.equal(window.localStorage.getItem('markdown-selection-notes:file:///notes/demo.md'), null);
   });
 
   it('메모 내용이 비어 있으면 저장하지 않는다', async function () {
@@ -155,7 +155,7 @@ describe('Markdown Selection Notes Preview E2E', function () {
     window.document.querySelector('.markdown-selection-note-delete').click();
 
     assert.equal(window.document.querySelectorAll('.markdown-selection-note').length, 0);
-    assert.deepEqual(JSON.parse(window.localStorage.getItem('markdown-selection-notes:file:///notes/demo.md')), []);
+    assert.equal(window.localStorage.getItem('markdown-selection-notes:file:///notes/demo.md'), null);
     assert.equal(window.CSS.highlights.get('markdown-selection-notes').size, 0);
   });
 
