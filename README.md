@@ -4,6 +4,8 @@ Markdown Selection Notes lets you add notes to selected text directly in the bui
 
 Notes are linked to the selected text. When you reopen the document, the linked text is highlighted again, and clicking a note card takes you back to the original location.
 
+![Markdown Selection Notes demo](./docs/demo.gif)
+
 ## Requirements
 
 - VS Code 1.85 or later
@@ -36,6 +38,16 @@ Notes are linked to the selected text. When you reopen the document, the linked 
 6. Review the saved note in the notes panel on the right.
 
 Click a note card to jump to the linked text. To delete a note, click the `×` button on the right side of its card.
+
+### Create the demo GIF
+
+The demo command opens VS Code in fullscreen mode, slowly performs the real Preview UI flow, and creates `docs/demo.gif` from full-screen captures.
+
+```bash
+npm run test:e2e:demo
+```
+
+This command is intended for macOS and requires Screen Recording and Accessibility permissions for the terminal or editor running the command. Close private windows and notifications before running it because the GIF captures the entire main display.
 
 ## Configuration
 

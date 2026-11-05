@@ -7,7 +7,10 @@ const { runTests } = require('@vscode/test-electron');
       version: process.env.VSCODE_VERSION || '1.143.1',
       extensionDevelopmentPath: path.resolve(__dirname, '../..'),
       extensionTestsPath: path.resolve(__dirname, 'extension.test.js'),
-      launchArgs: ['--disable-workspace-trust', '--remote-debugging-port=9333']
+      launchArgs: [
+        '--disable-workspace-trust',
+        '--remote-debugging-port=9333'
+      ]
     });
   } catch (error) {
     console.error('Extension Host E2E failed:', error);

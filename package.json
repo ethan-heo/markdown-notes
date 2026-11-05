@@ -85,6 +85,7 @@
     "test:e2e:dom": "mocha --timeout 10000 test/e2e/preview.dom.test.js",
     "test:e2e:extension": "npm run compile && node test/e2e/run-extension-host.js",
     "test:e2e:ui": "npm run compile && E2E_UI=1 node test/e2e/run-extension-host.js",
+    "test:e2e:demo": "npm run compile && E2E_UI=1 E2E_DEMO=1 node test/e2e/run-extension-host.js",
     "test:e2e:ui:visible": "npm run compile && E2E_UI=1 E2E_KEEP_OPEN=1 node test/e2e/run-extension-host.js",
     "test:e2e:visible": "npm run test:e2e:ui:visible",
     "test:e2e": "npm run test:e2e:dom && npm run test:e2e:extension"
@@ -94,9 +95,11 @@
     "@types/vscode": "^1.85.0",
     "@vscode/test-electron": "^3.1.0",
     "@vscode/vsce": "^4.1.0",
+    "gif-encoder-2": "^1.0.5",
     "jsdom": "^29.1.1",
     "mocha": "^12.0.3",
     "playwright": "^1.64.1",
+    "pngjs": "^7.0.0",
     "typescript": "^5.3.0"
   }
 }
