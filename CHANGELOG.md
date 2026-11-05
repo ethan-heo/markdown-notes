@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/ethan-heo/markdown-notes/compare/v1.0.1...v1.0.2) (2026-11-05)
+
+
+### Bug Fixes
+
+* remove unsupported Marketplace category ([2b7b869](https://github.com/ethan-heo/markdown-notes/commit/2b7b869993e07da2fd3c3874bb36b199753d3bf1))
+
 ## [1.0.1](https://github.com/ethan-heo/markdown-notes/compare/v1.0.0...v1.0.1) (2026-11-05)
 
 
