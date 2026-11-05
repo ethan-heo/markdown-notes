@@ -75,7 +75,7 @@
   box-sizing: border-box;
   width: 100%;
   min-height: 72px;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   padding: 7px;
   resize: vertical;
   border: 1px solid var(--vscode-input-border);
