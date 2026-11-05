@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/ethan-heo/markdown-notes/compare/v1.2.0...v1.2.1) (2026-11-05)
+
+
+### Bug Fixes
+
+* clear empty notes area state ([831b57b](https://github.com/ethan-heo/markdown-notes/commit/831b57b11d3f9dbcf622d9d477c9b2a6618febfc))
+
 ## [1.2.0](https://github.com/ethan-heo/markdown-notes/compare/v1.1.0...v1.2.0) (2026-11-05)
 
 

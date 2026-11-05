@@ -2,7 +2,7 @@
   "name": "markdown-selection-notes",
   "displayName": "%extension.displayName%",
   "description": "%extension.description%",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "publisher": "ethan-heo",
   "license": "MIT",
   "repository": {
