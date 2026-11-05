@@ -157,6 +157,10 @@ describe('Markdown Selection Notes Preview E2E', function () {
     assert.equal(window.document.querySelectorAll('.markdown-selection-note').length, 0);
     assert.equal(window.localStorage.getItem('markdown-selection-notes:file:///notes/demo.md'), null);
     assert.equal(window.CSS.highlights.get('markdown-selection-notes').size, 0);
+    assert.equal(window.document.getElementById('markdown-selection-notes-list').hidden, true);
+    assert.equal(window.document.getElementById('markdown-selection-notes-header').hidden, true);
+    assert.equal(window.document.getElementById('markdown-selection-notes-resize').hidden, true);
+    assert.equal(window.document.body.classList.contains('markdown-selection-notes-sidebar-open'), false);
   });
 
   it('메모 영역을 접고 펼치면 상태와 접근성 라벨을 저장한다', async function () {

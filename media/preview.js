@@ -353,6 +353,9 @@
   function syncSidebar() {
     const isOpen = notes.length > 0;
     document.body.classList.toggle('markdown-selection-notes-sidebar-open', isOpen);
+    list.hidden = !isOpen;
+    header.hidden = !isOpen;
+    resizeHandle.hidden = !isOpen || layout.collapsed;
     resizeHandle.style.display = isOpen && !layout.collapsed ? 'block' : 'none';
   }
   function highlightNotes() {
