@@ -17,8 +17,7 @@
     "vscode": "^1.85.0"
   },
   "categories": [
-    "Other",
-    "Markdown"
+    "Other"
   ],
   "contributes": {
     "markdown.markdownItPlugins": true,
