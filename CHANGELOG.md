@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.1.0](https://github.com/ethan-heo/markdown-notes/compare/v1.0.2...v1.1.0) (2026-11-05)
+
+
+### Features
+
+* remove note search from notes panel ([301861f](https://github.com/ethan-heo/markdown-notes/commit/301861f1e74fb13c48962c8a64152ea0c3849ae7))
+
+
+### Bug Fixes
+
+* crop macOS menu bar from demo GIF ([8e5f4bf](https://github.com/ethan-heo/markdown-notes/commit/8e5f4bf06cb9b3c4f5f9d3132b2fe21e3cc07a81))
+* separate note sidebar header from cards ([9682250](https://github.com/ethan-heo/markdown-notes/commit/9682250175d2ccd070d38b34dadc0af45688ab6f))
+
 ## [1.0.2](https://github.com/ethan-heo/markdown-notes/compare/v1.0.1...v1.0.2) (2026-11-05)
 
 
