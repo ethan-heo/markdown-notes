@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.2.0](https://github.com/ethan-heo/markdown-notes/compare/v1.1.0...v1.2.0) (2026-11-05)
+
+
+### Features
+
+* add Korean and English localization ([320d977](https://github.com/ethan-heo/markdown-notes/commit/320d977d88a38edff9e979b6575bfe52aa1c779d))
+* replace preview labels with icons ([0833e63](https://github.com/ethan-heo/markdown-notes/commit/0833e63b0aa0acbb2353318b54a74f42a4309aaa))
+
+
+### Bug Fixes
+
+* add explicit gap between note actions ([c64113f](https://github.com/ethan-heo/markdown-notes/commit/c64113f754544ab8f7d64b952157085c784f56a2))
+* enforce note editor button spacing ([bfcda68](https://github.com/ethan-heo/markdown-notes/commit/bfcda6843bbbd27e03b699d6c2e39de396deb9c4))
+* hide empty note sidebar ([ae06b2a](https://github.com/ethan-heo/markdown-notes/commit/ae06b2a96ead84020e3ba9e3a3bc55ea94b39b32))
+* hide empty sidebar resize area ([f874543](https://github.com/ethan-heo/markdown-notes/commit/f874543f011746ebdf435fb069df024860bce80f))
+* keep note storage mirrors in sync ([add2827](https://github.com/ethan-heo/markdown-notes/commit/add2827c16a77311e58f9c070d88b13b60f4474f))
+* prevent deleted notes from reappearing ([c99de1e](https://github.com/ethan-heo/markdown-notes/commit/c99de1e0ddd3034187396d0bc894f6875b7fb810))
+
 ## [1.1.0](https://github.com/ethan-heo/markdown-notes/compare/v1.0.2...v1.1.0) (2026-11-05)
 
 
