@@ -71,7 +71,7 @@ describe('Markdown Selection Notes Preview E2E', function () {
     const addButton = window.document.getElementById('markdown-selection-notes-button');
     const saveButton = window.document.querySelector('[data-action="save"]');
     const cancelButton = window.document.querySelector('[data-action="cancel"]');
-    assert.equal(addButton.textContent, '＋');
+    assert.ok(addButton.querySelector('.markdown-selection-notes-document-icon'));
     assert.equal(addButton.getAttribute('aria-label'), '메모 추가');
     assert.equal(saveButton.textContent, '✓');
     assert.equal(cancelButton.textContent, '×');

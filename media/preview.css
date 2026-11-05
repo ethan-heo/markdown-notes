@@ -2,8 +2,8 @@
   position: fixed;
   z-index: 1000;
   display: none;
-  width: 30px;
-  height: 30px;
+  width: 26px;
+  height: 26px;
   padding: 0;
   border: 1px solid var(--vscode-button-border, var(--vscode-button-background));
   border-radius: 2px;
@@ -13,6 +13,37 @@
   cursor: pointer;
   font: 18px/1 var(--vscode-font-family);
   transition: background-color 80ms ease, border-color 80ms ease;
+}
+#markdown-selection-notes-button .markdown-selection-notes-document-icon {
+  position: relative;
+  display: inline-block;
+  width: 10px;
+  height: 13px;
+  border: 1px solid currentColor;
+  border-radius: 1px;
+  box-sizing: border-box;
+  vertical-align: middle;
+}
+#markdown-selection-notes-button .markdown-selection-notes-document-icon::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 4px;
+  height: 4px;
+  border-left: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  background: var(--vscode-button-background);
+}
+#markdown-selection-notes-button .markdown-selection-notes-document-icon::after {
+  content: '';
+  position: absolute;
+  left: 2px;
+  right: 2px;
+  bottom: 3px;
+  height: 1px;
+  background: currentColor;
+  box-shadow: 0 -3px 0 currentColor;
 }
 #markdown-selection-notes-button:hover {
   background: var(--vscode-button-hoverBackground);
@@ -73,11 +104,11 @@
 #markdown-selection-notes-editor-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 6px;
+  gap: 4px;
 }
 .markdown-selection-notes-icon-button {
-  width: 30px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
   padding: 0 !important;
   font-size: 17px !important;
   line-height: 1;
@@ -141,8 +172,8 @@ body.markdown-selection-notes-sidebar-open #markdown-selection-notes-header {
   display: flex;
 }
 #markdown-selection-notes-more {
-  width: 30px;
-  min-height: 28px;
+  width: 26px;
+  min-height: 26px;
   margin-top: 10px;
   border: 1px solid var(--vscode-button-border, var(--vscode-panel-border));
   border-radius: 2px;

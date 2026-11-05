@@ -34,7 +34,7 @@
   const button = document.createElement('button');
   button.id = 'markdown-selection-notes-button';
   button.type = 'button';
-  button.textContent = '＋';
+  button.innerHTML = '<span class="markdown-selection-notes-document-icon" aria-hidden="true"></span>';
   button.title = '메모 추가';
   button.setAttribute('aria-label', '메모 추가');
   document.body.appendChild(button);
