@@ -20,7 +20,7 @@ jobs:
       github.event.workflow_run.conclusion == 'success' &&
       github.event.workflow_run.event == 'push' &&
       github.event.workflow_run.head_branch == 'main' &&
-      startsWith(github.event.workflow_run.head_commit.message, 'chore(main): release')
+      contains(github.event.workflow_run.head_commit.message, 'chore(main): release')
     runs-on: ubuntu-latest
 
     steps:
