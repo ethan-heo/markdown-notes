@@ -2,15 +2,16 @@
   position: fixed;
   z-index: 1000;
   display: none;
-  min-height: 28px;
-  padding: 0 10px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
   border: 1px solid var(--vscode-button-border, var(--vscode-button-background));
   border-radius: 2px;
   background: var(--vscode-button-background);
   color: var(--vscode-button-foreground);
   box-shadow: 0 1px 3px var(--vscode-widget-shadow, #0003);
   cursor: pointer;
-  font: 12px var(--vscode-font-family);
+  font: 18px/1 var(--vscode-font-family);
   transition: background-color 80ms ease, border-color 80ms ease;
 }
 #markdown-selection-notes-button:hover {
@@ -63,12 +64,23 @@
 
 #markdown-selection-notes-editor button {
   min-height: 26px;
-  margin-right: 6px;
   padding: 0 9px;
   border: 1px solid transparent;
   border-radius: 2px;
   cursor: pointer;
   font: inherit;
+}
+#markdown-selection-notes-editor-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+}
+.markdown-selection-notes-icon-button {
+  width: 30px;
+  height: 28px;
+  padding: 0 !important;
+  font-size: 17px !important;
+  line-height: 1;
 }
 #markdown-selection-notes-editor button[data-action="save"] {
   border-color: var(--vscode-button-border, var(--vscode-button-background));
@@ -129,7 +141,7 @@ body.markdown-selection-notes-sidebar-open #markdown-selection-notes-header {
   display: flex;
 }
 #markdown-selection-notes-more {
-  width: 100%;
+  width: 30px;
   min-height: 28px;
   margin-top: 10px;
   border: 1px solid var(--vscode-button-border, var(--vscode-panel-border));
@@ -137,7 +149,7 @@ body.markdown-selection-notes-sidebar-open #markdown-selection-notes-header {
   background: transparent;
   color: var(--vscode-textLink-foreground);
   cursor: pointer;
-  font: 12px var(--vscode-font-family);
+  font: 17px/1 var(--vscode-font-family);
 }
 #markdown-selection-notes-more:hover {
   background: var(--vscode-toolbar-hoverBackground);

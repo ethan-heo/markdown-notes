@@ -34,12 +34,14 @@
   const button = document.createElement('button');
   button.id = 'markdown-selection-notes-button';
   button.type = 'button';
-  button.textContent = '메모 추가';
+  button.textContent = '＋';
+  button.title = '메모 추가';
+  button.setAttribute('aria-label', '메모 추가');
   document.body.appendChild(button);
 
   const editor = document.createElement('div');
   editor.id = 'markdown-selection-notes-editor';
-  editor.innerHTML = '<textarea aria-label="메모" placeholder="이 선택 영역에 대한 메모를 입력하세요"></textarea><br><button type="button" data-action="save">저장</button><button type="button" data-action="cancel">취소</button>';
+  editor.innerHTML = '<textarea aria-label="메모"></textarea><div class="markdown-selection-notes-editor-actions"><button class="markdown-selection-notes-icon-button" type="button" data-action="save" title="저장" aria-label="저장">✓</button><button class="markdown-selection-notes-icon-button" type="button" data-action="cancel" title="취소" aria-label="취소">×</button></div>';
   document.body.appendChild(editor);
 
   const header = document.createElement('div');
@@ -269,8 +271,8 @@
     const cards = visible.map(function (note) {
       return '<div class="markdown-selection-note" data-note-id="' + escapeHtml(note.id) + '"><button class="markdown-selection-note-delete" data-note-id="' + escapeHtml(note.id) + '" title="메모 삭제" aria-label="메모 삭제">×</button><div class="markdown-selection-note-quote">“' + escapeHtml(note.text.slice(0, 120)) + (note.text.length > 120 ? '…' : '') + '”</div><div class="markdown-selection-note-comment">' + escapeHtml(note.comment) + '</div></div>';
     }).join('');
-    const more = ordered.length > visible.length ? '<button id="markdown-selection-notes-more" type="button">더 보기</button>' : '';
-    list.innerHTML = (cards || '<div class="markdown-selection-note-empty">선택 영역을 드래그해 메모를 추가하세요.</div>') + more;
+    const more = ordered.length > visible.length ? '<button id="markdown-selection-notes-more" class="markdown-selection-notes-icon-button" type="button" title="더 보기" aria-label="더 보기">⋯</button>' : '';
+    list.innerHTML = (cards || '') + more;
     list.querySelector('#markdown-selection-notes-more')?.addEventListener('click', function () {
       visibleLimit += 40;
       renderNotes();

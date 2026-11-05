@@ -65,6 +65,19 @@ describe('Markdown Selection Notes Preview E2E', function () {
     assert.equal(window.CSS.highlights.has('markdown-selection-notes-draft'), false);
   });
 
+  it('사용자에게 보이는 조작 문구를 아이콘으로 표시하고 접근성 이름은 유지한다', async function () {
+    const dom = createPreview();
+    const { window } = dom;
+    const addButton = window.document.getElementById('markdown-selection-notes-button');
+    const saveButton = window.document.querySelector('[data-action="save"]');
+    const cancelButton = window.document.querySelector('[data-action="cancel"]');
+    assert.equal(addButton.textContent, '＋');
+    assert.equal(addButton.getAttribute('aria-label'), '메모 추가');
+    assert.equal(saveButton.textContent, '✓');
+    assert.equal(cancelButton.textContent, '×');
+    assert.equal(window.document.querySelector('.markdown-selection-note-empty'), null);
+  });
+
   it('메모 버튼을 누르면 버튼은 사라지고 드래그 영역은 입력 중에도 유지된다', async function () {
     const dom = createPreview();
     const { window } = dom;
