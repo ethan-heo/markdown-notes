@@ -2,7 +2,7 @@
   "name": "markdown-selection-notes",
   "displayName": "Markdown Selection Notes",
   "description": "Markdown Preview에서 드래그한 영역에 메모를 남깁니다.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "ethan-heo",
   "license": "MIT",
   "repository": {
