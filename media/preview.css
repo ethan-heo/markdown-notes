@@ -73,6 +73,7 @@
 
 #markdown-selection-notes-editor textarea {
   box-sizing: border-box;
+  display: block;
   width: 100%;
   min-height: 72px;
   margin-bottom: 4px;
@@ -102,13 +103,19 @@
   font: inherit;
 }
 #markdown-selection-notes-editor-actions {
-  display: flex;
+  display: flex !important;
   justify-content: flex-end;
-  gap: 4px;
+  gap: 4px !important;
+  column-gap: 4px;
+  margin: 0;
+  line-height: 0;
 }
 .markdown-selection-notes-icon-button {
   width: 26px;
   height: 26px;
+  box-sizing: border-box;
+  flex: 0 0 26px;
+  margin: 0 !important;
   padding: 0 !important;
   font-size: 17px !important;
   line-height: 1;
