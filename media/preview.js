@@ -327,7 +327,7 @@
     window.scrollTo({ top: Math.max(0, targetTop), behavior: 'smooth' });
   }
   function syncSidebar() {
-    document.body.classList.toggle('markdown-selection-notes-sidebar-open', notes.length > 0 || editor.style.display === 'block');
+    document.body.classList.toggle('markdown-selection-notes-sidebar-open', notes.length > 0);
   }
   function highlightNotes() {
     if (!window.CSS || !CSS.highlights || !window.Highlight) return;
