@@ -29,6 +29,17 @@ The release PR updates `package.json`, `package-lock.json`, and the changelog. D
 
 Review and merge the release PR to approve the version bump and release.
 
+### Release Please token
+
+Some repositories restrict the default `GITHUB_TOKEN` from creating pull requests. This workflow therefore uses a dedicated `RELEASE_PLEASE_TOKEN` repository secret.
+
+Create a fine-grained GitHub token limited to `ethan-heo/markdown-notes` with these repository permissions:
+
+- Contents: Read and write
+- Pull requests: Read and write
+
+Add it at **Settings → Secrets and variables → Actions → New repository secret** with the name `RELEASE_PLEASE_TOKEN`.
+
 ## CD
 
 The `CD` workflow is triggered only after a successful `CI` run for a merged Release Please commit. It:
