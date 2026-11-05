@@ -3,7 +3,7 @@
 This project uses a CI-first release flow:
 
 ```text
-Pull Request → CI → merge to main → CI on main → CD → VS Code Marketplace
+Feature PR → CI → merge to main → Release PR → CI → merge release PR → CI → CD
 ```
 
 ## CI
@@ -14,33 +14,30 @@ The `CI` workflow runs for pull requests targeting `main`, pushes to `main`, and
 - Unit tests
 - Preview DOM E2E tests
 - Real VS Code Preview UI E2E tests
-- Release version validation on `main`
 
 The main branch must pass CI before it can be released.
 
-## Versioning rule
+## Automated versioning
 
-The extension version in `package.json` is the release version. Before merging a change to `main`, bump the version when a release tag already exists.
+Release Please creates or updates a release PR after feature changes are merged into `main`. It determines the next version from Conventional Commits:
 
-For example:
+- `fix:` → patch version
+- `feat:` → minor version
+- `BREAKING CHANGE:` or `!` → major version
 
-```bash
-npm version patch --no-git-tag-version
-```
+The release PR updates `package.json`, `package-lock.json`, and the changelog. Developers do not need to edit the version manually for each release.
 
-Use `minor` for a backwards-compatible feature and `major` for a breaking change. Commit the resulting `package.json` and `package-lock.json` changes in the pull request.
-
-The first release is allowed without an existing release tag. Later main-branch merges fail CI when the version is unchanged from the latest `v*` tag.
+Review and merge the release PR to approve the version bump and release.
 
 ## CD
 
-The `CD` workflow is triggered only after a successful `CI` run caused by a push to `main`. It:
+The `CD` workflow is triggered only after a successful `CI` run for a merged Release Please commit. It:
 
 1. Checks out the exact commit verified by CI.
 2. Installs dependencies and compiles the extension.
 3. Packages a VSIX with `@vscode/vsce`.
 4. Publishes the VSIX to the Visual Studio Marketplace using OIDC Trusted Publishing.
-5. Creates and pushes a matching `v<version>` Git tag.
+5. Uses the GitHub release and matching `v<version>` tag created by Release Please.
 
 ## Trusted Publishing setup
 

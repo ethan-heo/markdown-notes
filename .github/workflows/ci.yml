@@ -41,24 +41,3 @@ jobs:
 
       - name: Run real VS Code Preview UI E2E tests
         run: xvfb-run -a npm run test:e2e:ui
-
-      - name: Require a new release version on main
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        shell: bash
-        run: |
-          git fetch --tags --force
-          latest_tag="$(git tag --sort=-v:refname | head -n 1)"
-
-          if [ -z "$latest_tag" ]; then
-            echo "No release tag exists yet; the first version may be published."
-            exit 0
-          fi
-
-          current_version="$(node -p "require('./package.json').version")"
-          published_version="${latest_tag#v}"
-
-          if [ "$current_version" = "$published_version" ]; then
-            echo "package.json version $current_version is already released as $latest_tag."
-            echo "Bump package.json version before merging to main."
-            exit 1
-          fi

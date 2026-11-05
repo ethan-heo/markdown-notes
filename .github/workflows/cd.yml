@@ -19,7 +19,8 @@ jobs:
     if: >-
       github.event.workflow_run.conclusion == 'success' &&
       github.event.workflow_run.event == 'push' &&
-      github.event.workflow_run.head_branch == 'main'
+      github.event.workflow_run.head_branch == 'main' &&
+      startsWith(github.event.workflow_run.head_commit.message, 'chore(main): release')
     runs-on: ubuntu-latest
 
     steps:
@@ -54,13 +55,3 @@ jobs:
 
       - name: Publish to Visual Studio Marketplace with Trusted Publishing
         run: npx @vscode/vsce publish --oidc --packagePath "${{ steps.metadata.outputs.vsix }}"
-
-      - name: Create release tag
-        env:
-          VERSION: ${{ steps.metadata.outputs.version }}
-          RELEASE_SHA: ${{ github.event.workflow_run.head_sha }}
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git tag -a "v$VERSION" "$RELEASE_SHA" -m "chore: release v$VERSION"
-          git push origin "v$VERSION"

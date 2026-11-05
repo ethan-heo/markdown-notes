@@ -1,0 +1,24 @@
+name: Release PR
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release:
+    name: Create or update release PR
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create or update release PR
+        uses: googleapis/release-please-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          release-type: node
+          package-name: markdown-selection-notes
