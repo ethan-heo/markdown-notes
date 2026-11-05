@@ -45,6 +45,7 @@
   let storageKey = 'markdown-selection-notes:' + source;
   let noteStore = new NoteStore(source);
   let indexedDbReady = false;
+  let persistenceRevision = 0;
   const layoutKey = 'markdown-selection-notes-layout';
   applyPreviewConfig();
   let notes = readNotes();
@@ -228,6 +229,7 @@
       storageKey = 'markdown-selection-notes:' + source;
       noteStore = new NoteStore(source);
       indexedDbReady = false;
+      persistenceRevision = 0;
       notes = readNotes();
       visibleLimit = 40;
       renderNotes();
@@ -251,23 +253,43 @@
   function ensureId(note) { return Object.assign({}, note, { id: note.id || createId(), source: note.source || source }); }
   function createId() { return Date.now().toString(36) + '-' + Math.random().toString(36).slice(2); }
   function writeNote(note) {
+    persistenceRevision += 1;
     if (indexedDbReady) noteStore.put(note);
     else localStorage.setItem(storageKey, JSON.stringify(notes));
   }
   function removeNote(note) {
+    persistenceRevision += 1;
     if (indexedDbReady) noteStore.delete(note?.id);
     else localStorage.setItem(storageKey, JSON.stringify(notes));
   }
   function hydrateNotes() {
-    noteStore.load().then(function (stored) {
+    const store = noteStore;
+    const hydrationSource = source;
+    const loadedRevision = persistenceRevision;
+    store.load().then(function (stored) {
+      if (store !== noteStore || hydrationSource !== source) return;
       if (!stored) return;
-      indexedDbReady = true;
+      if (persistenceRevision !== loadedRevision) {
+        return synchronizeStore(store, hydrationSource);
+      }
       if (stored.length) {
+        indexedDbReady = true;
         notes = stored.map(ensureId);
+        localStorage.setItem(storageKey, JSON.stringify(notes));
         renderNotes();
         return;
       }
-      if (notes.length) noteStore.replace(notes);
+      if (notes.length) return synchronizeStore(store, hydrationSource);
+      indexedDbReady = true;
+    }).catch(function () { /* localStorage remains the fallback */ });
+  }
+  function synchronizeStore(store, hydrationSource) {
+    const revision = persistenceRevision;
+    const snapshot = notes.slice();
+    return store.replace(snapshot).then(function () {
+      if (store !== noteStore || hydrationSource !== source) return;
+      if (revision !== persistenceRevision) return synchronizeStore(store, hydrationSource);
+      indexedDbReady = true;
     }).catch(function () { /* localStorage remains the fallback */ });
   }
   function readLayout() {
@@ -447,7 +469,21 @@
   };
   NoteStore.prototype.replace = function (items) {
     const self = this;
-    return Promise.all(items.map(function (note) { return self.put(note); }));
+    return this.dbPromise.then(function (db) {
+      if (!db) return;
+      return new Promise(function (resolve, reject) {
+        const transaction = db.transaction('notes', 'readwrite');
+        const store = transaction.objectStore('notes');
+        const request = store.index('source').getAllKeys(self.source);
+        request.onsuccess = function () {
+          request.result.forEach(function (key) { store.delete(key); });
+          items.forEach(function (note) { store.put(note); });
+        };
+        transaction.oncomplete = resolve;
+        transaction.onerror = function () { reject(transaction.error); };
+        transaction.onabort = function () { reject(transaction.error); };
+      });
+    });
   };
   function normalizeText(value) { return utils.normalizeText(value); }
   function escapeHtml(value) { return value.replace(/[&<>"']/g, function (char) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]; }); }
