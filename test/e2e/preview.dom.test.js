@@ -5,9 +5,9 @@ const { JSDOM } = require('jsdom');
 
 const previewScript = fs.readFileSync(path.join(__dirname, '../../media/preview.js'), 'utf8');
 
-function createPreview({ source = 'file:///notes/demo.md', markdown = '첫 번째 문장입니다.\n같은 문장입니다. 같은 문장입니다.', notes = [], collapsed = false, highlightColor } = {}) {
+function createPreview({ source = 'file:///notes/demo.md', markdown = '첫 번째 문장입니다.\n같은 문장입니다. 같은 문장입니다.', notes = [], collapsed = false, highlightColor, language = 'en' } = {}) {
   const config = highlightColor ? `<div id="markdown-selection-notes-config" data-highlight-color="${highlightColor}"></div>` : '';
-  const dom = new JSDOM(`<!doctype html><html><head><div id="vscode-markdown-preview-data" data-settings='${JSON.stringify({ source })}'></div></head><body>${config}<div class="markdown-body"><p>${markdown}</p></div></body></html>`, {
+  const dom = new JSDOM(`<!doctype html><html lang="${language}"><head><div id="vscode-markdown-preview-data" data-settings='${JSON.stringify({ source })}'></div></head><body>${config}<div class="markdown-body"><p>${markdown}</p></div></body></html>`, {
     url: 'https://vscode-webview.test/preview',
     runScripts: 'outside-only'
   });
@@ -72,10 +72,12 @@ describe('Markdown Selection Notes Preview E2E', function () {
     const saveButton = window.document.querySelector('[data-action="save"]');
     const cancelButton = window.document.querySelector('[data-action="cancel"]');
     assert.ok(addButton.querySelector('.markdown-selection-notes-document-icon'));
-    assert.equal(addButton.getAttribute('aria-label'), '메모 추가');
+    assert.equal(addButton.getAttribute('aria-label'), 'Add note');
     assert.equal(saveButton.textContent, '✓');
     assert.equal(cancelButton.textContent, '×');
     assert.equal(window.document.querySelector('.markdown-selection-note-empty'), null);
+    const koreanDom = createPreview({ language: 'ko' });
+    assert.equal(koreanDom.window.document.getElementById('markdown-selection-notes-button').getAttribute('aria-label'), '메모 추가');
   });
 
   it('메모 버튼을 누르면 버튼은 사라지고 드래그 영역은 입력 중에도 유지된다', async function () {
@@ -167,11 +169,11 @@ describe('Markdown Selection Notes Preview E2E', function () {
     assert.equal(card.parentElement.id, 'markdown-selection-notes-list');
     toggle.click();
     assert.equal(window.document.body.classList.contains('markdown-selection-notes-sidebar-collapsed'), true);
-    assert.equal(toggle.getAttribute('aria-label'), '메모 영역 펼치기');
+    assert.equal(toggle.getAttribute('aria-label'), 'Expand notes area');
     assert.equal(JSON.parse(window.localStorage.getItem('markdown-selection-notes-layout')).collapsed, true);
     toggle.click();
     assert.equal(window.document.body.classList.contains('markdown-selection-notes-sidebar-collapsed'), false);
-    assert.equal(toggle.getAttribute('aria-label'), '메모 영역 접기');
+    assert.equal(toggle.getAttribute('aria-label'), 'Collapse notes area');
   });
 
   it('메모 영역을 드래그로 조절하면 범위 내 너비와 레이아웃을 저장한다', async function () {

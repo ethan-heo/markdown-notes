@@ -1,7 +1,7 @@
 {
   "name": "markdown-selection-notes",
-  "displayName": "Markdown Selection Notes",
-  "description": "Markdown Preview에서 드래그한 영역에 메모를 남깁니다.",
+  "displayName": "%extension.displayName%",
+  "description": "%extension.description%",
   "version": "1.1.0",
   "publisher": "ethan-heo",
   "license": "MIT",
@@ -30,11 +30,11 @@
     "commands": [
       {
         "command": "markdownSelectionNotes.openPreview",
-        "title": "Markdown Selection Notes: Preview 열기"
+        "title": "%command.openPreview%"
       },
       {
         "command": "markdownSelectionNotes.addNote",
-        "title": "Markdown Selection Notes: 선택 영역에 메모 남기기"
+        "title": "%command.addNote%"
       }
     ],
     "menus": {
@@ -53,7 +53,7 @@
       ]
     },
     "configuration": {
-      "title": "Markdown Selection Notes",
+          "title": "%configuration.title%",
       "properties": {
         "markdownSelectionNotes.previewColumn": {
           "type": "string",
@@ -62,12 +62,12 @@
             "active"
           ],
           "default": "beside",
-          "description": "메모 Preview를 여는 위치입니다."
+          "description": "%configuration.previewColumn.description%"
         },
         "markdownSelectionNotes.highlightColor": {
           "type": "string",
           "default": "#ffd33d",
-          "description": "기본 Markdown Preview에서 메모가 연결된 영역에 사용할 하이라이팅 색상입니다. 예: #ffd33d, rgba(255, 211, 61, 0.75)"
+          "description": "%configuration.highlightColor.description%"
         }
       }
     }

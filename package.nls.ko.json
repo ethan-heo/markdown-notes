@@ -1,0 +1,9 @@
+{
+  "extension.displayName": "Markdown Selection Notes",
+  "extension.description": "기본 Markdown Preview에서 선택한 텍스트에 메모를 남깁니다.",
+  "command.openPreview": "Markdown Selection Notes: Preview 열기",
+  "command.addNote": "Markdown Selection Notes: 선택 영역에 메모 남기기",
+  "configuration.title": "Markdown Selection Notes",
+  "configuration.previewColumn.description": "Markdown Preview를 여는 열입니다.",
+  "configuration.highlightColor.description": "기본 Markdown Preview에서 메모가 연결된 텍스트에 사용할 하이라이팅 색상입니다. 예: #ffd33d 또는 rgba(255, 211, 61, 0.75)."
+}

@@ -1,0 +1,9 @@
+{
+  "extension.displayName": "Markdown Selection Notes",
+  "extension.description": "Add notes to selected text in the built-in Markdown Preview.",
+  "command.openPreview": "Markdown Selection Notes: Open Preview",
+  "command.addNote": "Markdown Selection Notes: Add Note to Selection",
+  "configuration.title": "Markdown Selection Notes",
+  "configuration.previewColumn.description": "Column where the Markdown Preview opens.",
+  "configuration.highlightColor.description": "Highlight color for note-linked text in the built-in Markdown Preview. Example: #ffd33d or rgba(255, 211, 61, 0.75)."
+}

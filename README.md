@@ -30,7 +30,7 @@ Notes are linked to the selected text. When you reopen the document, the linked 
 2. Open the built-in Markdown Preview.
 
    - macOS: `Cmd + Shift + V`
-   - Command Palette: `Markdown Selection Notes: Preview 열기`
+   - Command Palette: `Markdown Selection Notes: Open Preview`
 
 3. Select the text you want to annotate in the Preview.
 4. Click the `Add Note` button that appears above or below the selection.
@@ -100,7 +100,7 @@ If the document text or structure changes and the saved location can no longer b
 
 ### The Preview does not open
 
-Make sure the active file is a Markdown file, then run `Markdown Selection Notes: Preview 열기` from the Command Palette.
+Make sure the active file is a Markdown file, then run `Markdown Selection Notes: Open Preview` from the Command Palette.
 
 ## Development
 

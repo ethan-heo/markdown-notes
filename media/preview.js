@@ -1,6 +1,29 @@
 (function () {
   'use strict';
 
+  const language = String(document.documentElement.lang || navigator.language || 'en').toLowerCase();
+  const messages = language.startsWith('ko') ? {
+    addNote: '메모 추가',
+    note: '메모',
+    save: '저장',
+    cancel: '취소',
+    resize: '메모 영역 크기 조절',
+    collapse: '메모 영역 접기',
+    expand: '메모 영역 펼치기',
+    deleteNote: '메모 삭제',
+    more: '더 보기'
+  } : {
+    addNote: 'Add note',
+    note: 'Note',
+    save: 'Save',
+    cancel: 'Cancel',
+    resize: 'Resize notes area',
+    collapse: 'Collapse notes area',
+    expand: 'Expand notes area',
+    deleteNote: 'Delete note',
+    more: 'Show more'
+  };
+
   const utils = window.MarkdownSelectionNotesHighlightUtils || {
     normalizeText: function (value) { return String(value || '').replace(/\s+/g, ' ').trim(); },
     findUniqueTextMatch: function (target, nodes) {
@@ -35,13 +58,13 @@
   button.id = 'markdown-selection-notes-button';
   button.type = 'button';
   button.innerHTML = '<span class="markdown-selection-notes-document-icon" aria-hidden="true"></span>';
-  button.title = '메모 추가';
-  button.setAttribute('aria-label', '메모 추가');
+  button.title = messages.addNote;
+  button.setAttribute('aria-label', messages.addNote);
   document.body.appendChild(button);
 
   const editor = document.createElement('div');
   editor.id = 'markdown-selection-notes-editor';
-  editor.innerHTML = '<textarea aria-label="메모"></textarea><div class="markdown-selection-notes-editor-actions"><button class="markdown-selection-notes-icon-button" type="button" data-action="save" title="저장" aria-label="저장">✓</button><button class="markdown-selection-notes-icon-button" type="button" data-action="cancel" title="취소" aria-label="취소">×</button></div>';
+  editor.innerHTML = '<textarea aria-label="' + messages.note + '"></textarea><div class="markdown-selection-notes-editor-actions"><button class="markdown-selection-notes-icon-button" type="button" data-action="save" title="' + messages.save + '" aria-label="' + messages.save + '">✓</button><button class="markdown-selection-notes-icon-button" type="button" data-action="cancel" title="' + messages.cancel + '" aria-label="' + messages.cancel + '">×</button></div>';
   document.body.appendChild(editor);
 
   const header = document.createElement('div');
@@ -52,12 +75,12 @@
   document.body.appendChild(list);
   const resizeHandle = document.createElement('div');
   resizeHandle.id = 'markdown-selection-notes-resize';
-  resizeHandle.title = '메모 영역 크기 조절';
+  resizeHandle.title = messages.resize;
+  resizeHandle.setAttribute('aria-label', messages.resize);
   document.body.appendChild(resizeHandle);
   const toggle = document.createElement('button');
   toggle.id = 'markdown-selection-notes-toggle';
   toggle.type = 'button';
-  toggle.title = '메모 영역 접기/펼치기';
   header.appendChild(toggle);
   applyLayout();
   renderNotes();
@@ -258,7 +281,8 @@
     document.body.style.setProperty('--markdown-selection-notes-width', layout.width + 'px');
     document.body.classList.toggle('markdown-selection-notes-sidebar-collapsed', layout.collapsed);
     toggle.textContent = layout.collapsed ? '‹' : '›';
-    toggle.setAttribute('aria-label', layout.collapsed ? '메모 영역 펼치기' : '메모 영역 접기');
+    toggle.title = layout.collapsed ? messages.expand : messages.collapse;
+    toggle.setAttribute('aria-label', layout.collapsed ? messages.expand : messages.collapse);
   }
   function renderNotes() {
     if (notes.length === 0 && editor.style.display !== 'block' && layout.collapsed) {
@@ -269,9 +293,9 @@
     const ordered = notes.slice().reverse();
     const visible = ordered.slice(0, visibleLimit);
     const cards = visible.map(function (note) {
-      return '<div class="markdown-selection-note" data-note-id="' + escapeHtml(note.id) + '"><button class="markdown-selection-note-delete" data-note-id="' + escapeHtml(note.id) + '" title="메모 삭제" aria-label="메모 삭제">×</button><div class="markdown-selection-note-quote">“' + escapeHtml(note.text.slice(0, 120)) + (note.text.length > 120 ? '…' : '') + '”</div><div class="markdown-selection-note-comment">' + escapeHtml(note.comment) + '</div></div>';
+      return '<div class="markdown-selection-note" data-note-id="' + escapeHtml(note.id) + '"><button class="markdown-selection-note-delete" data-note-id="' + escapeHtml(note.id) + '" title="' + messages.deleteNote + '" aria-label="' + messages.deleteNote + '">×</button><div class="markdown-selection-note-quote">“' + escapeHtml(note.text.slice(0, 120)) + (note.text.length > 120 ? '…' : '') + '”</div><div class="markdown-selection-note-comment">' + escapeHtml(note.comment) + '</div></div>';
     }).join('');
-    const more = ordered.length > visible.length ? '<button id="markdown-selection-notes-more" class="markdown-selection-notes-icon-button" type="button" title="더 보기" aria-label="더 보기">⋯</button>' : '';
+    const more = ordered.length > visible.length ? '<button id="markdown-selection-notes-more" class="markdown-selection-notes-icon-button" type="button" title="' + messages.more + '" aria-label="' + messages.more + '">⋯</button>' : '';
     list.innerHTML = (cards || '') + more;
     list.querySelector('#markdown-selection-notes-more')?.addEventListener('click', function () {
       visibleLimit += 40;
